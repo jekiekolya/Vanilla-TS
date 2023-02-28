@@ -137,7 +137,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                         error_1 = _a.sent();
                         if (error_1 instanceof Error)
                             alertError(error_1);
-                        return [3 /*break*/, 4];
+                        return [2 /*return*/, []];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -161,7 +161,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                         error_2 = _a.sent();
                         if (error_2 instanceof Error)
                             alertError(error_2);
-                        return [3 /*break*/, 4];
+                        return [2 /*return*/, []];
                     case 4: return [2 /*return*/];
                 }
             });

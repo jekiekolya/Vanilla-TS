@@ -37,44 +37,42 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 (function () {
     // Globals
-    var todoList = document.getElementById('todo-list');
-    var userSelect = document.getElementById('user-todo');
-    var form = document.querySelector('form');
+    var todoList = document.getElementById("todo-list");
+    var userSelect = document.getElementById("user-todo");
+    var form = document.querySelector("form");
     var todos = [];
     var users = [];
     // Attach Events
-    document.addEventListener('DOMContentLoaded', initApp);
-    form === null || form === void 0 ? void 0 : form.addEventListener('submit', handleSubmit);
+    document.addEventListener("DOMContentLoaded", initApp);
+    form === null || form === void 0 ? void 0 : form.addEventListener("submit", handleSubmit);
     // Basic Logic
     function getUserName(userId) {
         var user = users.find(function (u) { return u.id === userId; });
-        return (user === null || user === void 0 ? void 0 : user.name) || '';
+        return user === null || user === void 0 ? void 0 : user.name;
     }
     function printTodo(_a) {
         var id = _a.id, userId = _a.userId, title = _a.title, completed = _a.completed;
-        var li = document.createElement('li');
-        li.className = 'todo-item';
+        var li = document.createElement("li");
+        li.className = "todo-item";
         li.dataset.id = String(id);
         li.innerHTML = "<span>".concat(title, " <i>by</i> <b>").concat(getUserName(userId), "</b></span>");
-        var status = document.createElement('input');
-        status.type = 'checkbox';
+        var status = document.createElement("input");
+        status.type = "checkbox";
         status.checked = completed;
-        status.addEventListener('change', handleTodoChange);
-        var close = document.createElement('span');
-        close.innerHTML = '&times;';
-        close.className = 'close';
-        close.addEventListener('click', handleClose);
+        status.addEventListener("change", handleTodoChange);
+        var close = document.createElement("span");
+        close.innerHTML = "&times;";
+        close.className = "close";
+        close.addEventListener("click", handleClose);
         li.prepend(status);
         li.append(close);
         todoList === null || todoList === void 0 ? void 0 : todoList.prepend(li);
     }
     function createUserOption(user) {
-        if (userSelect) {
-            var option = document.createElement('option');
-            option.value = String(user.id);
-            option.innerText = user.name;
-            userSelect.append(option);
-        }
+        var option = document.createElement("option");
+        option.value = String(user.id);
+        option.innerText = user.name;
+        userSelect === null || userSelect === void 0 ? void 0 : userSelect.append(option);
     }
     function removeTodo(todoId) {
         var _a, _b;
@@ -82,8 +80,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             todos = todos.filter(function (todo) { return todo.id !== todoId; });
             var todo = todoList.querySelector("[data-id=\"".concat(todoId, "\"]"));
             if (todo) {
-                (_a = todo.querySelector('input')) === null || _a === void 0 ? void 0 : _a.removeEventListener('change', handleTodoChange);
-                (_b = todo.querySelector('.close')) === null || _b === void 0 ? void 0 : _b.removeEventListener('click', handleClose);
+                (_a = todo
+                    .querySelector("input")) === null || _a === void 0 ? void 0 : _a.removeEventListener("change", handleTodoChange);
+                (_b = todo.querySelector(".close")) === null || _b === void 0 ? void 0 : _b.removeEventListener("click", handleClose);
                 todo.remove();
             }
         }
@@ -102,28 +101,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
     function handleSubmit(event) {
         event.preventDefault();
-        if (form) {
-            createTodo({
-                userId: Number(form.user.value),
-                title: form.todo.value,
-                completed: false,
-            });
-        }
+        createTodo({
+            userId: Number(form === null || form === void 0 ? void 0 : form.user.value),
+            title: form === null || form === void 0 ? void 0 : form.todo.value,
+            completed: false,
+        });
     }
     function handleTodoChange() {
-        var parent = this.parentElement;
-        if (parent) {
-            var todoId = parent.dataset.id;
-            var completed = this.checked;
-            todoId && toggleTodoComplete(todoId, completed);
-        }
+        var _a;
+        var todoId = (_a = this.parentElement) === null || _a === void 0 ? void 0 : _a.dataset.id;
+        var completed = this.checked;
+        todoId && toggleTodoComplete(todoId, completed);
     }
     function handleClose() {
-        var parent = this.parentElement;
-        if (parent) {
-            var todoId = parent.dataset.id;
-            todoId && deleteTodo(todoId);
-        }
+        var _a;
+        var todoId = (_a = this.parentElement) === null || _a === void 0 ? void 0 : _a.dataset.id;
+        todoId && deleteTodo(todoId);
     }
     // Async logic
     function getAllTodos() {
@@ -133,7 +126,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, fetch('https://jsonplaceholder.typicode.com/todos?_limit=15')];
+                        return [4 /*yield*/, fetch("https://jsonplaceholder.typicode.com/todos?_limit=15")];
                     case 1:
                         response = _a.sent();
                         return [4 /*yield*/, response.json()];
@@ -144,7 +137,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                         error_1 = _a.sent();
                         if (error_1 instanceof Error)
                             alertError(error_1);
-                        return [2 /*return*/, []];
+                        return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -157,7 +150,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, fetch('https://jsonplaceholder.typicode.com/users?_limit=5')];
+                        return [4 /*yield*/, fetch("https://jsonplaceholder.typicode.com/users?_limit=5")];
                     case 1:
                         response = _a.sent();
                         return [4 /*yield*/, response.json()];
@@ -168,7 +161,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                         error_2 = _a.sent();
                         if (error_2 instanceof Error)
                             alertError(error_2);
-                        return [2 /*return*/, []];
+                        return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -181,11 +174,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, fetch('https://jsonplaceholder.typicode.com/todos', {
-                                method: 'POST',
+                        return [4 /*yield*/, fetch("https://jsonplaceholder.typicode.com/todos", {
+                                method: "POST",
                                 body: JSON.stringify(todo),
                                 headers: {
-                                    'Content-Type': 'application/json',
+                                    "Content-Type": "application/json",
                                 },
                             })];
                     case 1:
@@ -213,16 +206,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         return [4 /*yield*/, fetch("https://jsonplaceholder.typicode.com/todos/".concat(todoId), {
-                                method: 'PATCH',
+                                method: "PATCH",
                                 body: JSON.stringify({ completed: completed }),
                                 headers: {
-                                    'Content-Type': 'application/json',
+                                    "Content-Type": "application/json",
                                 },
                             })];
                     case 1:
                         response = _a.sent();
                         if (!response.ok) {
-                            throw new Error('Failed to connect with the server! Please try later.');
+                            throw new Error("Failed to connect with the server! Please try later.");
                         }
                         return [3 /*break*/, 3];
                     case 2:
@@ -243,9 +236,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         return [4 /*yield*/, fetch("https://jsonplaceholder.typicode.com/todos/".concat(todoId), {
-                                method: 'DELETE',
+                                method: "DELETE",
                                 headers: {
-                                    'Content-Type': 'application/json',
+                                    "Content-Type": "application/json",
                                 },
                             })];
                     case 1:
@@ -254,7 +247,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                             removeTodo(todoId);
                         }
                         else {
-                            throw new Error('Failed to connect with the server! Please try later.');
+                            throw new Error("Failed to connect with the server! Please try later.");
                         }
                         return [3 /*break*/, 3];
                     case 2:
